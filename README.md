@@ -19,7 +19,7 @@ libp2p
     "it-to-buffer": "^3.0.0",
     "libp2p": "^0.42.2"
 ```
-
+# Initial state
 before running the code example (grabbed here https://github.com/libp2p/js-libp2p/blob/master/examples/transports/2.js)
 ```
 rm -rf node_modules/ 
@@ -81,6 +81,7 @@ npm start
 Hello 
 ```
 
+# Let's examine error cases
 ### now lets put libp2p code into index.ts
 
 src/index.ts
@@ -229,7 +230,7 @@ src/index.ts(11,22): error TS2307: Cannot find module 'it-to-buffer' or its corr
     at Object.<anonymous> (/Users/igx/Documents/projects/p2p-test/node_modules/ts-node/src/bin.ts:157:12)
 [nodemon] app crashed - waiting for file changes before starting...
 ```
-if we add moduleResolution = same error
+if we try tsconfig.json: "moduleResolution": "node", same error
 ``` 
 tsconfig.json:
 
@@ -271,8 +272,31 @@ SyntaxError: Cannot use import statement outside a module
 
 
 ```
-and if 
+and if we try package.json: "type":"module"
+```
+ npm start
 
+> test-p2p@0.1 start
+> nodemon
+
+[nodemon] 2.0.20
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: ts,json
+[nodemon] starting `ts-node src/index.ts`
+TypeError: Unknown file extension ".ts" for /Users/igx/Documents/projects/p2p-test/src/index.ts
+    at new NodeError (node:internal/errors:393:5)
+    at Object.getFileProtocolModuleFormat [as file:] (node:internal/modules/esm/get_format:75:9)
+    at defaultGetFormat (node:internal/modules/esm/get_format:114:38)
+    at defaultLoad (node:internal/modules/esm/load:81:20)
+    at nextLoad (node:internal/modules/esm/loader:161:28)
+    at ESMLoader.load (node:internal/modules/esm/loader:593:26)
+    at ESMLoader.moduleProvider (node:internal/modules/esm/loader:445:22)
+    at new ModuleJob (node:internal/modules/esm/module_job:63:26)
+    at ESMLoader.#createModuleJob (node:internal/modules/esm/loader:468:17)
+    at ESMLoader.getModuleJob (node:internal/modules/esm/loader:422:34)
+[nodemon] app crashed - waiting for file changes before starting...
+```
 
 
 #### Useful links
