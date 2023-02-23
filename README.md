@@ -28,8 +28,16 @@ npm update
 
 ## This works (pure js)
 
+``` 
+tsconfig.json:
+
+"compilerOptions": {
+"module": "commonjs",
+"target": "es2017",
 ```
-node tests/3/p2p-discovery.js
+
+```
+node src/p2p-discovery.js
  
 node 1 is listening on:
 /ip4/127.0.0.1/tcp/56281/p2p/12D3KooWFchYTMfZJEjjYtwXoy226ryifCxHFcUKXTZyPCNMc7Fu
@@ -42,11 +50,11 @@ Hello p2p world!
 
 ## This also works (typescript + mocha test)
 ```
-npm test -- --grep "hellotest"
+npm test
 
 > test-p2p@0.1 test
-> mocha --inspect=9229 -r ts-node/register tests/**/*.test.ts --require tests/root.ts --serial --grep hellotest
-Debugger listening on ws://127.0.0.1:9229/3ae64c5f-5d73-4a90-a9fb-10098b2223fd
+> mocha --inspect=9229 -r ts-node/register tests/**/*.test.ts --require tests/root.ts --serial
+Debugger listening on ws://127.0.0.1:9229/eefdf901-d29e-463a-852a-c2f19dd35480
 For help, see: https://nodejs.org/en/docs/inspector
   hellotest
 check that mocha is working
