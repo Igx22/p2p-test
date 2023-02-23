@@ -6,7 +6,8 @@ import { mplex } from '@libp2p/mplex'
 import { toString as uint8ArrayToString } from 'uint8arrays/to-string'
 import { fromString as uint8ArrayFromString } from 'uint8arrays/from-string'
 import { pipe } from 'it-pipe'
-import toBuffer from 'it-to-buffer'*/
+import toBuffer from 'it-to-buffer'
+*/
 
 import 'mocha'
 /*

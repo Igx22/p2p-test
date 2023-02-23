@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2017",
-//    "module": "es2020", // ensures output is ESM
-//    "target": "es2020", // support modern features like private identifiers
-//    "moduleResolution": "node",
+//    "module": "commonjs",
+//    "target": "es2017",
+    "module": "es2020", // ensures output is ESM
+    "target": "es2020", // support modern features like private identifiers
+    "moduleResolution": "node",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
