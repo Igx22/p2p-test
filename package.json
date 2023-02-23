@@ -3,7 +3,6 @@
   "version": "0.1",
   "description": "test libp2p with typescript",
   "main": "src/index.ts",
-  "type": "module",
   "module": "ESNext",
   "scripts": {
     "build": "rimraf ./build && tsc",
@@ -12,7 +11,7 @@
     "heroku-postbuild": "npm run build",
     "start": "nodemon",
     "inspect": "nodemon --inspect src/app.ts",
-    "test": "mocha --inspect=9229 -r ts-node/register tests/**/*.test.ts --require tests/root.ts --serial",
+    "test": "mocha --inspect=9229 -r ts-node/register tests/**/*.test.ts",
     "lint": "npm run lint:js ",
     "lint:eslint": "eslint --ignore-path .gitignore --ext .ts",
     "lint:js": "npm run lint:eslint src/",

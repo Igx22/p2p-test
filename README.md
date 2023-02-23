@@ -37,7 +37,7 @@ tsconfig.json:
 ```
 
 ```
-node src/p2p-discovery.js
+node src/p2p-discovery.mjs
  
 node 1 is listening on:
 /ip4/127.0.0.1/tcp/56281/p2p/12D3KooWFchYTMfZJEjjYtwXoy226ryifCxHFcUKXTZyPCNMc7Fu
@@ -61,15 +61,30 @@ check that mocha is working
     ✔ test1
 ```
 
+```
+npm start
+
+> test-p2p@0.1 start
+> nodemon
+
+[nodemon] 2.0.20
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: ts,json
+[nodemon] starting `ts-node src/index.ts`
+Hello 
+```
+
 ## This doesn't (ts-node @ typescript)
 
-### attempt1
+### attempt1 (uncommenting p2p-message.test.ts)
 ``` 
 tsconfig.json:
 
 "compilerOptions": {
-"module": "es2020", 
-"target": "es2017",
+   "module": "es2020", // ensures output is ESM
+    "target": "es2020", // support modern features like private identifiers
+    "moduleResolution": "node",
 ```
 
 ```
@@ -134,3 +149,9 @@ Error: Must use import to load ES Module: /Users/igx/Documents/projects/test-p2p
 [ERROR] 20:59:53 Error: Must use import to load ES Module: /Users/igx/Documents/projects/test-p2p-fix/src/index.ts
 
 ```
+
+
+#### Useful links
+https://github.com/libp2p/js-libp2p/issues/1286
+https://github.com/TypeStrong/ts-node/issues/1007
+https://github.com/ipfs/js-ipfs/blob/master/docs/upgrading/v0.62-v0.63.md#typescript-and-esm
