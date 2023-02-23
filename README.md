@@ -23,7 +23,7 @@ libp2p
 before running the code example (grabbed here https://github.com/libp2p/js-libp2p/blob/master/examples/transports/2.js)
 ```
 rm -rf node_modules/ 
-npm update
+npm install
 ```
 
 ## This works (pure js)
@@ -301,5 +301,9 @@ TypeError: Unknown file extension ".ts" for /Users/igx/Documents/projects/p2p-te
 
 #### Useful links
 https://github.com/libp2p/js-libp2p/issues/1286
+
+
 https://github.com/TypeStrong/ts-node/issues/1007
+
+
 https://github.com/ipfs/js-ipfs/blob/master/docs/upgrading/v0.62-v0.63.md#typescript-and-esm
