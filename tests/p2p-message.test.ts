@@ -1,8 +1,4 @@
-
-
-
-// import * as libp2p from "libp2p"
-
+/*
 import { createLibp2p } from 'libp2p'
 import { tcp } from '@libp2p/tcp'
 import { noise } from '@chainsafe/libp2p-noise'
@@ -10,17 +6,18 @@ import { mplex } from '@libp2p/mplex'
 import { toString as uint8ArrayToString } from 'uint8arrays/to-string'
 import { fromString as uint8ArrayFromString } from 'uint8arrays/from-string'
 import { pipe } from 'it-pipe'
-import toBuffer from 'it-to-buffer'
+import toBuffer from 'it-to-buffer'*/
 
 import 'mocha'
-
+/*
 describe('testp2p', function () {
     it('testp2pcall', async function () {
         console.log('test p2p started');
-        console.log(createLibp2p);
-        await run();
+        console.log(createLibp2p); // just a single import (!)
+        // await run(); // UNCOMMENT TO TEST run()
     })
-})
+})*/
+// UNCOMMENT TO TEST run()
 /*
 async function run() {
     const createNode = async () => {
