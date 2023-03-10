@@ -299,6 +299,119 @@ TypeError: Unknown file extension ".ts" for /Users/igx/Documents/projects/p2p-te
 ```
 
 
+
+# Option 2 (start compiled js from dist/src/index.js on typescript 4.9) 
+
+I've edited package.json:
+
+```
+  "main": "dist/src/index.js",
+  "module": "ESNext",
+  "type": "module",
+   "scripts": {
+    "build": "rimraf ./build && tsc",
+    "dev2": "ts-node-dev --transpile-only ./tests/p2p-message.test.ts",
+  ...
+      "typescript": "^4.9.5"  
+```
+
+##  we can run dist/src/index.js (works)
+
+```
+rm -rf node_modules/
+npm i
+npm run build
+
+> test-p2p@0.1 build
+> rimraf ./build && tsc
+
+
+npm start    
+
+> test-p2p@0.1 start
+> nodemon
+[nodemon] 2.0.20
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `node dist/src/index.js`
+Hello 
+node 1 is listening on:
+/ip4/127.0.0.1/tcp/54447/p2p/12D3KooWGkm8u8fvnTBpA3L3BYjNoFQuYZ1FrWFiWGZTSgjiScVt
+/ip4/192.168.1.39/tcp/54447/p2p/12D3KooWGkm8u8fvnTBpA3L3BYjNoFQuYZ1FrWFiWGZTSgjiScVt
+/ip4/10.110.62.251/tcp/54447/p2p/12D3KooWGkm8u8fvnTBpA3L3BYjNoFQuYZ1FrWFiWGZTSgjiScVt
+node 2 is listening on:
+/ip4/127.0.0.1/tcp/54448/p2p/12D3KooWDTCvd7qaeYNQJujVHnxQ4jnmud5Pmsyn4vBpE28EUYZr
+/ip4/192.168.1.39/tcp/54448/p2p/12D3KooWDTCvd7qaeYNQJujVHnxQ4jnmud5Pmsyn4vBpE28EUYZr
+/ip4/10.110.62.251/tcp/54448/p2p/12D3KooWDTCvd7qaeYNQJujVHnxQ4jnmud5Pmsyn4vBpE28EUYZr
+Hello p2p world!
+^C
+
+```
+## src/index.ts fails (!)
+
+Let's revert main back to index.ts
+
+```
+"main": "src/index.ts",
+```
+and start it (fails)
+```
+igx@igxmbp p2p-test % npm start  
+
+> test-p2p@0.1 start
+> nodemon
+
+[nodemon] 2.0.20
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: ts,json
+[nodemon] starting `ts-node src/index.ts`
+TypeError: Unknown file extension ".ts" for /Users/igx/Documents/projects/p2p-test/src/index.ts
+    at new NodeError (node:internal/errors:393:5)
+    at Object.getFileProtocolModuleFormat [as file:] (node:internal/modules/esm/get_format:75:9)
+    at defaultGetFormat (node:internal/modules/esm/get_format:114:38)
+    at defaultLoad (node:internal/modules/esm/load:81:20)
+    at nextLoad (node:internal/modules/esm/loader:161:28)
+    at ESMLoader.load (node:internal/modules/esm/loader:593:26)
+    at ESMLoader.moduleProvider (node:internal/modules/esm/loader:445:22)
+    at new ModuleJob (node:internal/modules/esm/module_job:63:26)
+    at ESMLoader.#createModuleJob (node:internal/modules/esm/loader:468:17)
+    at ESMLoader.getModuleJob (node:internal/modules/esm/loader:422:34)
+[nodemon] app crashed - waiting for file changes before starting...
+
+```
+
+
+##  let's try to run code as a test (fails)
+```
+igx@igxmbp p2p-test % npm run dev2
+
+> test-p2p@0.1 dev2
+> ts-node-dev --transpile-only ./tests/p2p-message.test.ts
+
+[INFO] 13:27:54 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.1, typescript ver. 4.9.5)
+Compilation error in /Users/igx/Documents/projects/p2p-test/tests/p2p-message.test.ts
+Error: Must use import to load ES Module: /Users/igx/Documents/projects/p2p-test/tests/p2p-message.test.ts
+    at Object.<anonymous> (/Users/igx/Documents/projects/p2p-test/tests/p2p-message.test.ts:1:7)
+    at Module._compile (node:internal/modules/cjs/loader:1159:14)
+    at Module._compile (/Users/igx/Documents/projects/p2p-test/node_modules/source-map-support/source-map-support.js:568:25)
+    at Module.m._compile (/private/var/folders/gh/qwb7hlgd74qg161hk7664p7m0000gn/T/ts-node-dev-hook-30600465553697687.js:69:33)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1213:10)
+    at require.extensions..jsx.require.extensions..js (/private/var/folders/gh/qwb7hlgd74qg161hk7664p7m0000gn/T/ts-node-dev-hook-30600465553697687.js:114:20)
+    at require.extensions.<computed> (/private/var/folders/gh/qwb7hlgd74qg161hk7664p7m0000gn/T/ts-node-dev-hook-30600465553697687.js:71:20)
+    at Object.nodeDevHook [as .ts] (/Users/igx/Documents/projects/p2p-test/node_modules/ts-node-dev/lib/hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1037:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:878:12)
+[ERROR] 13:27:54 Error: Must use import to load ES Module: /Users/igx/Documents/projects/p2p-test/tests/p2p-message.test.ts
+^C
+
+```
+
+Summary ts-node/ts-node-dev cannot run libp2p code without errors.
+However, if we run a typescript compiler by hand - the resulting js works.
+
+
 #### Useful links
 https://github.com/libp2p/js-libp2p/issues/1286
 
