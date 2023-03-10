@@ -1,3 +1,5 @@
+UPDATED: Please scroll down to # Option 2
+
 # This is a demo project for libp2p @ typescript
 
 versions
