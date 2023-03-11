@@ -23,6 +23,7 @@
     "noFallthroughCasesInSwitch": false
   },
   "ts-node": {
+    "esm": true,
     "transpileOnly": true,
     "files": true,
     "experimentalResolver": true
