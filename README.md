@@ -1,4 +1,7 @@
-UPDATED: Please scroll down to # Option 2
+# UPDATED
+last fix works \
+also you can check this https://github.com/libp2p/js-libp2p/issues/1583#issuecomment-1463666072
+
 
 # This is a demo project for libp2p @ typescript
 
